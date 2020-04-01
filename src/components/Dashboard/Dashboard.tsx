@@ -5,12 +5,30 @@ import moment from "moment";
 import ModalViewEmail from "../ModalViewEmail/ModalViewEmail";
 import ModalSendEmail from "../ModalSendEmail/ModalSendEmail";
 import { IEmail } from "../../interface/IEmail";
+import { getEmail } from "../../utils/services";
+import axios from "axios";
 
 const Dashboard: React.FC = () => {
   const [listeEmail, setListeEmail] = useState<IEmail[]>([]);
 
   const loadEmail = async () => {
-    //
+    let email = getEmail();
+    let request = await axios.get(
+      `http://172.22.247.155:8888/api/email/send/${email}`
+    );
+    const data: IEmail[] = [];
+
+    if (request.data) {
+      for (let e of request.data) {
+        data.push({
+          from: e[0],
+          date: e[1],
+          sujet: e[2],
+          message: e[3]
+        });
+      }
+    }
+    setListeEmail(data);
   };
 
   useEffect(() => {
