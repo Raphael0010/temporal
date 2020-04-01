@@ -1,0 +1,1 @@
+{"version":3,"sources":["Login.css"],"names":[],"mappings":"AAAA,UACE,kBAAyB,CACzB,8DAMF","file":"main.b4483fb2.chunk.css","sourcesContent":[".bg-modal {\n  background: rgb(2, 0, 36);\n  background: linear-gradient(\n    148deg,\n    rgba(2, 0, 36, 1) 0%,\n    rgba(9, 9, 121, 1) 23%,\n    rgba(0, 212, 255, 1) 100%\n  );\n}\n"]}
