@@ -11,7 +11,7 @@ CORS(api)
 
 
 def apiRunThread():
-    api.run(host='127.0.0.1', port=8888)
+    api.run(host='172.22.247.155', port=8888)
 
 
 @api.route('/api/email/get/<email>', methods=['GET'])
