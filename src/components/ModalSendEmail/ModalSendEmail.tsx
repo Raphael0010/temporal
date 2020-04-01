@@ -37,8 +37,11 @@ const ModalSendEmail: React.FC = () => {
       data
     );
 
-    if (result.data.status === "200") {
+    if (result.data === "ok") {
       message.success("Votre email est envoyé !");
+      setSujet("");
+      setDestinataire("");
+      setMessageEmail("");
       setVisible(false);
     }
   };

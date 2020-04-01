@@ -32,13 +32,13 @@ def sendEmail():
     except:
         return "Missings parameters"
 
-    order = 'echo "{}" | mail -s "{}" {}@temporal.com -a "From: {}@temporal.com"'.format(
+    order = 'echo "{}" | mail -s "{}" {} -a "From: {}@temporal.com"'.format(
         message, sujet, emailDesti, emailFrom)
 
     cmd = subprocess.Popen(order, shell=True, stdout=subprocess.PIPE,
                            stderr=subprocess.PIPE, stdin=subprocess.PIPE)
 
-    return str(cmd)
+    return "ok"
 
 
 if __name__ == "__main__":
