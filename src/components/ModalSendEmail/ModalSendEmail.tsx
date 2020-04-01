@@ -23,7 +23,7 @@ const ModalSendEmail: React.FC = () => {
 
   const sendEmail = async () => {
     let from = getEmail();
-    let result = await axios.post("http://127.0.0.1:8888/api/email/send", {
+    let result = await axios.post("http://172.22.247.155/api/email/send", {
       emailFrom: from,
       emailDesti: destinataire,
       sujet: sujet,
