@@ -25,7 +25,7 @@ def getEmail(email):
     cmd = str(out)
 
     data = "["
-    for x in cmd.stdout.split("text:"):
+    for x in cmd.split("text:"):
         # si il trouve un sujet dans le bloc
         if(x.find("Subject:") != -1):
             # parse du sujet
@@ -46,10 +46,10 @@ def getEmail(email):
                 "Vous avez du courrier dans /var/mail/usermail", "")
 
             ligne = {
-                "from": fromEmail.rstrip(),
-                "date": date.rstrip(),
-                "sujet": sujet.rstrip(),
-                "message": message.rstrip()
+                "from": fromEmail.rstrip("\n"),
+                "date": date.rstrip("\n"),
+                "sujet": sujet.rstrip("\n"),
+                "message": message.rstrip("\n")
             }
 
             if(data == "["):

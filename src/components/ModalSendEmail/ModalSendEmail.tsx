@@ -56,7 +56,7 @@ const ModalSendEmail: React.FC = () => {
 
   return (
     <div style={{ marginLeft: "1%" }}>
-      <Button onClick={onVisible} style={{ marginTop: "1%" }} type="primary">
+      <Button onClick={onVisible} type="primary">
         Envoyer un email
       </Button>
       <Modal
