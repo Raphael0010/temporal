@@ -31,6 +31,7 @@ def getEmail(email):
             # parse du sujet
             sujet = x[x.find("Subject:"):x.find("From:")]
             sujet = sujet.replace('Subject: ', '')
+            sujet = sujet.replace('\n', '')
 
             # parse de la date
             date = x[x.find("Date:"):x.find("Date:") + 37]
@@ -39,9 +40,11 @@ def getEmail(email):
             # parse de la from
             fromEmail = x[x.find("From:"):x.find("To: <")]
             fromEmail = fromEmail.replace('From: ', '')
+            fromEmail = fromEmail.replace('\n', '')
 
             # parse du message
             message = x[x.find("Date:") + 46:]
+            message = message.replace('\n', '')
             message = message.replace(
                 "Vous avez du courrier dans /var/mail/usermail", "")
 
