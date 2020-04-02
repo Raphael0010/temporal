@@ -12,16 +12,17 @@ CORS(api)
 
 
 def apiRunThread():
-    api.run(host='127.0.0.1', port=8888)
-    # api.run(host='172.22.247.155', port=8888)
+    #api.run(host='127.0.0.1', port=8888)
+    api.run(host='172.22.247.155', port=8888)
 
 
 @api.route('/api/email/get/<email>', methods=['GET'])
 def getEmail(email):
     order = "doveadm fetch -u usermail 'text' TO {}@temporal.com".format(
         email)
-    cmd = subprocess.Popen(order, shell=True, stdout=subprocess.PIPE,
-                           stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    cmd = subprocess.Popen(order, stdout=subprocess.PIPE, shell=True)
+    out, error = cmd.communicate()
+    cmd = str(out)
 
     data = "["
     for x in cmd.stdout.split("text:"):

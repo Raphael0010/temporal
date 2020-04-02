@@ -14,7 +14,7 @@ const Dashboard: React.FC = () => {
   const loadEmail = async () => {
     let email = getEmail();
     let request = await axios.get(
-      `http://172.22.247.155:8888/api/email/send/${email}`
+      `http://172.22.247.155:8888/api/email/get/${email}`
     );
     const data: IEmail[] = [];
 
