@@ -48,11 +48,15 @@ def getEmail(email):
             message = message.replace(
                 "Vous avez du courrier dans /var/mail/usermail", "")
 
+            messageId = x[x.find("Message-Id: "):x.find("home>") + 5]
+            messageId = message.replace("Message-Id: ", "")
+
             ligne = {
                 "from": fromEmail.rstrip("\n"),
                 "date": date.rstrip("\n"),
                 "sujet": sujet.rstrip("\n"),
-                "message": message.rstrip("\n")
+                "message": message.rstrip("\n"),
+                "messageId": messageId.rstrip("\n")
             }
 
             if(data == "["):
@@ -63,6 +67,22 @@ def getEmail(email):
             continue
 
     return data + "]"
+
+
+@api.route('/api/email/delete', methods=['POST'])
+def sendEmail():
+    try:
+        messageId = request.form.get('messageId')
+    except:
+        return "Missings parameters"
+
+    order = 'doveadm expunge -u usermail mailbox "INBOX" HEADER "Message-Id" "{} && doveadm purge -u usermail"'.format(
+        messageId)
+
+    cmd = subprocess.Popen(order, shell=True, stdout=subprocess.PIPE,
+                           stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+
+    return "ok"
 
 
 @api.route('/api/email/send', methods=['POST'])

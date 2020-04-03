@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Input, Button, message } from "antd";
 import { getEmail } from "../../utils/services";
+import { ip } from "../../utils/api";
 import axios from "axios";
 
 const ModalSendEmail: React.FC = () => {
@@ -32,10 +33,7 @@ const ModalSendEmail: React.FC = () => {
     data.append("sujet", sujet);
     data.append("message", messageEmail);
 
-    let result = await axios.post(
-      "http://172.22.247.155:8888/api/email/send",
-      data
-    );
+    let result = await axios.post(`${ip}/api/email/send`, data);
 
     if (result.data === "ok") {
       message.success("Votre email est envoyé !");

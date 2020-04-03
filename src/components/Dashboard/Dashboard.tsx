@@ -6,16 +6,28 @@ import ModalViewEmail from "../ModalViewEmail/ModalViewEmail";
 import ModalSendEmail from "../ModalSendEmail/ModalSendEmail";
 import { IEmail } from "../../interface/IEmail";
 import { getEmail } from "../../utils/services";
+import { ip } from "../../utils/api";
+import { DeleteOutlined } from "@ant-design/icons";
 import axios from "axios";
 
 const Dashboard: React.FC = () => {
   const [listeEmail, setListeEmail] = useState<IEmail[]>([]);
 
+  const deleteEmail = async (messageid: string) => {
+    console.log(messageid);
+    let data = new FormData();
+    data.append("messageId", messageid);
+    let email = getEmail();
+    if (email) {
+      data.append("email", email);
+    }
+    let request = await axios.post(`${ip}/api/email/delete/${messageid}`);
+    console.log(request);
+  };
+
   const loadEmail = async () => {
     let email = getEmail();
-    let request = await axios.get(
-      `http://172.22.247.155:8888/api/email/get/${email}`
-    );
+    let request = await axios.get(`${ip}/api/email/get/${email}`);
     const data: IEmail[] = [];
 
     let counter = 0;
@@ -27,7 +39,8 @@ const Dashboard: React.FC = () => {
           from: e.from,
           date: e.date,
           sujet: e.sujet,
-          message: e.message
+          message: e.message,
+          messageId: e.messageId
         });
       }
     }
@@ -67,7 +80,16 @@ const Dashboard: React.FC = () => {
                 from={e.from}
                 message={e.message}
                 date={e.date}
-              ></ModalViewEmail>
+              ></ModalViewEmail>,
+              <Tooltip title="Supprimer">
+                <Button
+                  style={{ marginLeft: "40%" }}
+                  type="primary"
+                  shape="circle"
+                  icon={<DeleteOutlined />}
+                  onClick={() => deleteEmail(e.messageId)}
+                />
+              </Tooltip>
             ]}
             content={<p>{e.sujet}</p>}
             datetime={

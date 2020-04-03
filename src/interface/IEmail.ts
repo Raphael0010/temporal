@@ -4,4 +4,5 @@ export interface IEmail {
   date: string;
   sujet: string;
   message: string;
+  messageId: string;
 }
