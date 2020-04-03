@@ -49,7 +49,7 @@ def getEmail(email):
                 "Vous avez du courrier dans /var/mail/usermail", "")
 
             messageId = x[x.find("Message-Id: "):x.find("home>") + 5]
-            messageId = message.replace("Message-Id: ", "")
+            messageId = messageId.replace("Message-Id: ", "")
 
             ligne = {
                 "from": fromEmail.rstrip("\n"),
