@@ -70,7 +70,7 @@ def getEmail(email):
 
 
 @api.route('/api/email/delete', methods=['POST'])
-def sendEmail():
+def deleteEmail():
     try:
         messageId = request.form.get('messageId')
     except:
