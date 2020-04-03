@@ -48,6 +48,7 @@ def getEmail(email):
             message = message.replace(
                 "Vous avez du courrier dans /var/mail/usermail", "")
 
+            # parse du messageid
             messageId = x[x.find("Message-Id: "):x.find("home>") + 5]
             messageId = messageId.replace("Message-Id: ", "")
 
@@ -76,7 +77,7 @@ def deleteEmail():
     except:
         return "Missings parameters"
 
-    order = 'doveadm expunge -u usermail mailbox "INBOX" HEADER "Message-Id" "{} && doveadm purge -u usermail"'.format(
+    order = 'sudo doveadm expunge -u usermail mailbox "INBOX" HEADER "Message-Id" "{}" && sudo doveadm purge -u usermail'.format(
         messageId)
 
     cmd = subprocess.Popen(order, shell=True, stdout=subprocess.PIPE,

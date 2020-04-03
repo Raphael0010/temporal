@@ -14,15 +14,10 @@ const Dashboard: React.FC = () => {
   const [listeEmail, setListeEmail] = useState<IEmail[]>([]);
 
   const deleteEmail = async (messageid: string) => {
-    console.log(messageid);
     let data = new FormData();
     data.append("messageId", messageid);
-    let email = getEmail();
-    if (email) {
-      data.append("email", email);
-    }
-    let request = await axios.post(`${ip}/api/email/delete/${messageid}`);
-    console.log(request);
+    await axios.post(`${ip}/api/email/delete`, data);
+    loadEmail();
   };
 
   const loadEmail = async () => {
