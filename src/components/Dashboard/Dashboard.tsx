@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Comment, Avatar, Tooltip, Divider, Button } from "antd";
+import { Comment, Avatar, Tooltip, Divider, Button, message } from "antd";
 import Navbar from "../Navbar/Navbar";
 import moment from "moment";
 import ModalViewEmail from "../ModalViewEmail/ModalViewEmail";
@@ -18,6 +18,7 @@ const Dashboard: React.FC = () => {
     data.append("messageId", messageid);
     await axios.post(`${ip}/api/email/delete`, data);
     loadEmail();
+    message.success("Message supprimé !");
   };
 
   const loadEmail = async () => {
@@ -42,6 +43,11 @@ const Dashboard: React.FC = () => {
     setListeEmail(data);
   };
 
+  const reloadEmail = async () => {
+    message.info("Messagerie rafraîchit !");
+    loadEmail();
+  };
+
   useEffect(() => {
     loadEmail();
   }, []);
@@ -51,7 +57,11 @@ const Dashboard: React.FC = () => {
       <Navbar />
       <div style={{ display: "flex", marginTop: "1%" }}>
         <ModalSendEmail />
-        <Button onClick={loadEmail} style={{ marginLeft: "1%" }} type="default">
+        <Button
+          onClick={reloadEmail}
+          style={{ marginLeft: "1%" }}
+          type="default"
+        >
           Rafraichir ses emails
         </Button>
       </div>
